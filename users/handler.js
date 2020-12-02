@@ -14,7 +14,7 @@ module.exports.create = async (event, context, callback) => {
     .then(data => callback(null, Success(data, Status.OK)))
     .catch(error => {
       console.error(error)
-      callback(null, Fail(error.message, Status.BAD_REQUEST, context.awsRequestId))
+      callback(null, Fail(error.message, Status.BAD_REQUEST))
     })
 }
 module.exports.getAll = async (event, context, callback) => {
@@ -24,7 +24,7 @@ module.exports.getAll = async (event, context, callback) => {
     .then(data => callback(null, Success(data, Status.OK)))
     .catch(error => {
       console.error(error)
-      callback(null, Fail(error.message, Status.BAD_REQUEST, context.awsRequestId))
+      callback(null, Fail(error.message, Status.BAD_REQUEST))
     })
 }
 module.exports.getById = async (event, context, callback) => {
@@ -34,7 +34,7 @@ module.exports.getById = async (event, context, callback) => {
     .then(data => callback(null, Success(data, Status.OK)))
     .catch(error => {
       console.error(error)
-      callback(null, Fail(error.message, Status.BAD_REQUEST, context.awsRequestId))
+      callback(null, Fail(error.message, Status.BAD_REQUEST))
     })
 }
 module.exports.updateById = async (event, context, callback) => {
@@ -45,7 +45,7 @@ module.exports.updateById = async (event, context, callback) => {
     .then(data => callback(null, Success(data, Status.OK)))
     .catch(error => {
       console.error(error)
-      callback(null, Fail(error.message, Status.BAD_REQUEST, context.awsRequestId))
+      callback(null, Fail(error.message, Status.BAD_REQUEST))
     })
 }
 
@@ -55,6 +55,6 @@ module.exports.deleteById = async (event, context, callback) => {
   return deleteByIdUseCase.remove({ id }).then(data => callback(null, Success(data, Status.OK)))
     .catch(error => {
       console.error(error)
-      callback(null, Fail(error.message, Status.BAD_REQUEST, context.awsRequestId))
+      callback(null, Fail(error.message, Status.BAD_REQUEST))
     })
 }

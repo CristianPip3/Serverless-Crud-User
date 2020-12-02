@@ -1,11 +1,14 @@
 const dynamoose = require('dynamoose')
-
+const { v4: uuidv4 } = require('uuid')
 const userSchema = new dynamoose.Schema({
-  _id: String,
+  _id: {
+    type: String,
+    default: () => uuidv4(),
+    required: true
+  },
   names: String,
   lastName: String,
   type: String,
-  identification: String,
   age: Number,
   city: String,
   imageUrl: String
