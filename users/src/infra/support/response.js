@@ -14,8 +14,7 @@ module.exports = () => {
     return {
       body: JSON.stringify(
         {
-          message: 'Go Serverless v1.0! Your function executed successfully! UPDATE BY ID',
-          input: data
+          data
         },
         null,
         2

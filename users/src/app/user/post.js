@@ -1,10 +1,10 @@
 /**
- * this file will create in the post use-case for vehicle domain
+ * this file will create in the post use-case for user domain
  */
 const { User } = require('src/domain/user')
 const { v4: uuidv4 } = require('uuid')
 /**
- * function for create vehicle.
+ * function for create user.
  */
 module.exports = ({ userRepository }) => {
   // code for create a item
