@@ -1,16 +1,14 @@
 const { toEntity } = require('./transform')
 
 module.exports = ({ model }) => {
-  const getAll = (...args) => {
-    return model.allRegister()
+  const getAll = (...args) =>
+    model.scan(...args).exec()
       .then(entity =>
         entity.map(data =>
           toEntity(data)))
       .catch(error => {
         throw new Error(error)
       })
-  }
-
   const create = (...args) =>
     model.create(...args)
       .then(toEntity)
@@ -33,11 +31,6 @@ module.exports = ({ model }) => {
       throw new Error('User Not Found invalid')
     }
   }
-
-  const isExist = (...args) =>
-    model.get(...args)
-      .then(entity => entity !== null)
-
   const destroy = (...args) => model.delete(...args)
 
   return {
@@ -45,7 +38,6 @@ module.exports = ({ model }) => {
     create,
     update,
     findById,
-    isExist,
     destroy
   }
 }

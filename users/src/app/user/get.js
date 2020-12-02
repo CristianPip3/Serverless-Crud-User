@@ -6,7 +6,12 @@ module.exports = ({ userRepository }) => {
   const all = (req) => {
     return Promise.resolve()
       .then(() => {
-        return userRepository.getAll({})
+        const { age, _id, type } = req || {}
+        const where = {}
+        age && (where.age = { ge: parseInt(age) })
+        _id && (where._id = { eq: _id })
+        type && (where.type = { eq: type })
+        return userRepository.getAll(where)
       })
       .catch(error => {
         throw new Error(error)

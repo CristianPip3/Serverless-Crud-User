@@ -19,7 +19,8 @@ module.exports.create = async (event, context, callback) => {
 }
 module.exports.getAll = async (event, context, callback) => {
   const getUseCase = get({ userRepository })
-  return getUseCase.all(event.body)
+  const objQuery = event.queryStringParameters
+  return getUseCase.all(objQuery)
     .then(data => callback(null, Success(data, Status.OK)))
     .catch(error => {
       console.error(error)
