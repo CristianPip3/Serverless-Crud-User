@@ -1,5 +1,5 @@
 /**
- * function for getter user.
+ * function for getter user all or query.
  */
 module.exports = ({ userRepository }) => {
   // code for getting all the items
