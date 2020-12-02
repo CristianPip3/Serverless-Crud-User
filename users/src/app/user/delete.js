@@ -8,9 +8,7 @@ module.exports = ({ userRepository }) => {
   // code for create a item
   const remove = ({ id }) => {
     return Promise.resolve()
-      .then(() => {
-        return userRepository.destroy(id)
-      })
+      .then(() => userRepository.findById(id).then(entity => userRepository.destroy(entity._id)))
       .catch(error => {
         throw new Error(error)
       })

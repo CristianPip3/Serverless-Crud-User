@@ -1,13 +1,13 @@
 const { toEntity } = require('./transform')
 
 module.exports = ({ model }) => {
-  console.log('MODEL REPOSITORY', model)
   const getAll = (...args) => {
-    console.log('ENTRANDO A GETALL')
-    return model.batchGet(...args)
-      .then(entity => {
-        console.log('GETALL', entity)
-        return entity
+    return model.allRegister()
+      .then(entity =>
+        entity.map(data =>
+          toEntity(data)))
+      .catch(error => {
+        throw new Error(error)
       })
   }
 
@@ -27,8 +27,7 @@ module.exports = ({ model }) => {
 
   const findById = async (id) => {
     const result = await model.get(id)
-    console.log(result)
-    if (result && result !== undefined) {
+    if (result) {
       return toEntity(result)
     } else {
       throw new Error('User Not Found invalid')

@@ -10,7 +10,19 @@ const userSchema = new dynamoose.Schema({
   city: String,
   imageUrl: String
 }, {
-  saveUnknown: true,
+  saveUnknown: false,
   timestamps: true
 })
-module.exports = dynamoose.model('user', userSchema)
+
+const UserModel = dynamoose.model('user', userSchema)
+UserModel.methods.set('allRegister', async function () {
+  let results = await this.scan().exec()
+  let lastKey = results.lastKey
+  do {
+    const newResult = await this.scan().startAt(lastKey).exec()
+    results = [...results, ...newResult]
+    lastKey = newResult.lastKey
+  } while (lastKey)
+  return results
+})
+module.exports = UserModel
