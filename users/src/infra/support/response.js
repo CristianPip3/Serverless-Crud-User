@@ -35,12 +35,7 @@ module.exports = () => {
   }
 
   const Fail = (message, status, requestId) => {
-    return JSON.stringify({
-      errorType: 'InternalServerError',
-      httpStatus: status,
-      requestId: requestId,
-      message: message
-    })
+    return assoc('statusCode', status, defaultResponse(message))
   }
 
   return {
