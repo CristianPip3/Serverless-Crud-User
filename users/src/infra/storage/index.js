@@ -12,7 +12,8 @@ module.exports = () => {
     }
     const buffer = Buffer.from(imageData, 'base64')
     return fileType.fromBuffer(buffer)
-      .then(file => detectImage(file, buffer, body)).catch(error => {
+      .then(file => detectImage(file, buffer, body))
+      .catch(error => {
         console.log(error)
       })
   }
@@ -36,6 +37,8 @@ module.exports = () => {
       console.log('Upload image Ok', data)
       const imageUrl = `https://${process.env.IMAGEUPLOADBUCKET}.s3-${process.env.REGION}.amazonaws.com/${key}`
       return Object.assign({}, body, { imageUrl })
+    }).catch(error => {
+      console.log(error)
     })
   }
   return {
