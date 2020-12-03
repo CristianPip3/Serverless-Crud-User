@@ -4,7 +4,7 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
-    "test:specs": "NODE_PATH=. NODE_ENV=test mocha --exit"
+    "test:specs": "NODE_PATH=. NODE_ENV=develoment mocha --exit"
   },
   "keywords": [],
   "author": "CristianPip3 <cristianbenavides@unicauca.edu.co>",
