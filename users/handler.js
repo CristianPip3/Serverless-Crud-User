@@ -53,7 +53,8 @@ module.exports.updateById = async (event, context, callback) => {
 module.exports.deleteById = async (event, context, callback) => {
   const deleteByIdUseCase = remove({ userRepository })
   const id = event.pathParameters.id
-  return deleteByIdUseCase.remove({ id }).then(data => callback(null, Success(data, Status.OK)))
+  return deleteByIdUseCase.remove({ id })
+    .then(data => callback(null, Success(data, Status.OK)))
     .catch(error => {
       console.error(error)
       callback(null, Fail(error.message, Status.BAD_REQUEST))

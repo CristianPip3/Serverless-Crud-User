@@ -4,9 +4,6 @@
 module.exports = ({ userRepository }) => {
   // code for getting a item by id
   const getById = ({ id }) => {
-    if (!id) {
-      throw new Error('Incorrect body on request')
-    }
     return Promise.resolve()
       .then(() => userRepository.findById(id))
       .catch(error => {

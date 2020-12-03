@@ -11,18 +11,19 @@ const { User } = require('src/domain/user')
 module.exports = ({ userRepository }) => {
   // code for update a item
   const update = ({ id, body }) => {
-    if (!body || !id) {
-      throw new Error('Incorrect body on request')
-    }
     return Promise.resolve()
-      .then(() =>
-        userRepository.findById(id)
+      .then(() => {
+        if (!body) {
+          throw new Error('Incorrect body on request')
+        }
+        return userRepository.findById(id)
           .then(entity => {
             const _id = entity._id
             const entityCustom = Object.assign({}, body, { _id })
             const user = User(entityCustom)
             return userRepository.update(user)
-          }))
+          })
+      })
       .catch(error => {
         throw new Error(error)
       })
