@@ -23,14 +23,14 @@ module.exports = ({ model }) => {
         throw new Error(error)
       })
 
-  const findById = async (id) => {
-    const result = await model.get(id)
-    if (result) {
-      return toEntity(result)
-    } else {
-      throw new Error('User Not Found invalid')
-    }
-  }
+  const findById = (id) =>
+    model.get(id)
+      .then(toEntity)
+      .catch(error => {
+        console.log(error)
+        throw new Error('User Not Found invalid')
+      })
+
   const destroy = (...args) => model.delete(...args)
 
   return {

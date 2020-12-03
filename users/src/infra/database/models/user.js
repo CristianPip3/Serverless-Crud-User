@@ -13,7 +13,7 @@ const userSchema = new dynamoose.Schema({
   city: String,
   imageUrl: String
 }, {
-  saveUnknown: false,
+  saveUnknown: true,
   timestamps: true
 })
-module.exports = dynamoose.model('user', userSchema)
+module.exports = dynamoose.model('user', userSchema, { update: true })
