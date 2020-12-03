@@ -6,20 +6,17 @@ const allowedMimes = ['image/jpeg', 'image/png', 'image/jpg']
 
 module.exports = () => {
   const uploadImage = body => {
-    if (!body || !body.image) {
-      throw new Error('Incorrect body on request')
-    }
     let imageData = body.image
     if (body.image.substr(0, 7) === 'base64,') {
       imageData = body.image.substr(7, body.image.length)
     }
     const buffer = Buffer.from(imageData, 'base64')
     return fileType.fromBuffer(buffer)
-      .then(file => detectImage(file, buffer)).catch(error => {
+      .then(file => detectImage(file, buffer, body)).catch(error => {
         console.log(error)
       })
   }
-  const detectImage = (fileInfo, buffer) => {
+  const detectImage = (fileInfo, buffer, body) => {
     const detectedExt = fileInfo.ext || 'jpg'
     const detectedMime = fileInfo.mime
     if (!allowedMimes.includes(detectedMime)) {
@@ -37,7 +34,8 @@ module.exports = () => {
     }
     return s3.putObject(params).promise().then(data => {
       console.log('Upload image Ok', data)
-      return `https://${process.env.IMAGEUPLOADBUCKET}.s3-${process.env.REGION}.amazonaws.com/${key}`
+      const imageUrl = `https://${process.env.IMAGEUPLOADBUCKET}.s3-${process.env.REGION}.amazonaws.com/${key}`
+      return Object.assign({}, body, { imageUrl })
     })
   }
   return {

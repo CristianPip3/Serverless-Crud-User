@@ -10,11 +10,8 @@ const {
 } = container.cradle
 
 module.exports.create = async (event, context, callback) => {
-  const postUseCase = post({ userRepository })
-  const entity = JSON.parse(event.body)
-  const imageUrl = await storage.uploadImage(entity)
-  const body = Object.assign({}, entity, { imageUrl })
-  console.log('URL', imageUrl)
+  const postUseCase = post({ userRepository, storage })
+  const body = JSON.parse(event.body)
   return postUseCase.create({ body })
     .then(data => callback(null, Success(data, Status.OK)))
     .catch(error => {
