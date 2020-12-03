@@ -4,7 +4,7 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test:specs": "NODE_PATH=. NODE_ENV=test mocha --exit"
   },
   "keywords": [],
   "author": "CristianPip3 <cristianbenavides@unicauca.edu.co>",
@@ -14,6 +14,8 @@
     "aws-sdk": "^2.799.0",
     "dayjs": "^1.9.6",
     "dynamoose": "^2.4.1",
+    "eslint": "^7.14.0",
+    "file-type": "^16.0.1",
     "http-status": "^1.5.0",
     "ramda": "^0.27.1",
     "tcomb": "^3.2.29",
@@ -46,5 +48,19 @@
     "snazzy": "^8.0.0",
     "standard": "^14.3.4",
     "supertest": "^3.4.2"
+  },
+  "standard": {
+    "globals": [
+      "request",
+      "app",
+      "expect",
+      "describe",
+      "it",
+      "config",
+      "beforeEach"
+    ]
+  },
+  "resolutions": {
+    "extend": "^3.0.2"
   }
 }

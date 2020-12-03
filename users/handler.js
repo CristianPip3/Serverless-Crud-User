@@ -1,15 +1,20 @@
 'use strict'
 const container = require('src/container')
 const Status = require('http-status')
+// const storage = require('src/infra/storage')
 const { get, getById, post, patch, remove } = require('src/app/user')
 const {
+  storage,
   repository: { userRepository },
   response: { Success, Fail }
 } = container.cradle
 
 module.exports.create = async (event, context, callback) => {
   const postUseCase = post({ userRepository })
-  const body = JSON.parse(event.body)
+  const entity = JSON.parse(event.body)
+  const imageUrl = await storage.uploadImage(entity)
+  const body = Object.assign({}, entity, { imageUrl })
+  console.log('URL', imageUrl)
   return postUseCase.create({ body })
     .then(data => callback(null, Success(data, Status.OK)))
     .catch(error => {
@@ -48,7 +53,6 @@ module.exports.updateById = async (event, context, callback) => {
       callback(null, Fail(error.message, Status.BAD_REQUEST))
     })
 }
-
 module.exports.deleteById = async (event, context, callback) => {
   const deleteByIdUseCase = remove({ userRepository })
   const id = event.pathParameters.id
